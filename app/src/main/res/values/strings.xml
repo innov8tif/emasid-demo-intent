@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">EmasSample</string>
+    <string name="settings">SETTINGS</string>
+    <string name="cancel">CANCEL</string>
+</resources>

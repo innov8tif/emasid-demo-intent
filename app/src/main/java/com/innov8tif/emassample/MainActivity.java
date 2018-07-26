@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.AppSettingsDialog;
@@ -56,7 +58,9 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && data != null) {
 
+
             EmasModel result = new Gson().fromJson(data.getStringExtra(EXTRA_RESULT), EmasModel.class);
+            Log.d("EMAS", "=>" + data.getStringExtra(EXTRA_RESULT));
             Glide.with(this)
                     .load(result.getDocumentPath())
                     .into(imgDoc);
@@ -83,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
 
          /*  available scan type
                 1.mykad
-              2.  kad
+              2. ikad
             3. passport
                4. mdr
               5.  sg

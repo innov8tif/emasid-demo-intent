@@ -1,14 +1,14 @@
 # emasid-demo-intent
-Quickly integrate with EMAS ID Demo Android app via Intent, to achieve ID card OCR scanning and facial verification.
+Quickly integrate with [EMAS ID Demo](https://play.google.com/store/apps/details?id=com.innov8tif.emas.id.demo) Android app via Intent, to achieve ID card OCR scanning and facial verification.
 
-This project demonstrates how to start Emas ID Demo app from another    app via intent. Emas ID Demo can be used to scan different type of    Identification cards and passport and return the result to your app. Emas ID Demo app can be launched as follow : 
+This project demonstrates how you can launch EMAS ID Demo app from another app (e.g. your user onboarding app) via Intent. EMAS ID Demo can be used to scan (using OCR) various types of ID document and passport, and return the result to your app. EMAS ID Demo app can be launched as follow : 
 
      Intent intent = new Intent();
      intent.setAction("com.innov8tif.emas.scan");
      intent.putExtra(EXTRA_SCAN_TYPE, "mykad");
      startActivityForResult(intent, RC_EMAS);
 
-**Available scan types are**
+**Available Scanner Types Are**
 
  1. mykad for MyKad
  2. ikad for IKad
@@ -18,13 +18,12 @@ This project demonstrates how to start Emas ID Demo app from another    app via 
  6. ektp for Indonesia's eKTP and
  7. hk for Hong Kong's IC
 
- 
-Face verification feature can be turned on by passing extra into intent:
+Face verification feature can be turned on by passing extra into Intent:
 
     intent.putExtra(EXTRA_VERIFY_FACE, true);
     intent.putExtra(EXTRA_HIGH_THRESHOLD, true);
     
-After scan finished, you will receive scan result as JSON string in **onActivityResult()** method. And the resulted JSON is in the following format:
+When ID card scanning completed, you will receive scan result as JSON string in **onActivityResult()** method. And the resulted JSON is in the following format:
 
     {  
     "confidenceLevel":27.641726,  
@@ -55,4 +54,4 @@ After scan finished, you will receive scan result as JSON string in **onActivity
     "threshold":79.9  
     }
 
-***Please make sure Emas ID Demo app version 1.2.0 is installed on your phone. For more detail information, please refer to this sample project source code**
+***Please make sure that EMAS ID Demo app version 1.2.0 is installed in your Android device. For more detail information, please refer to the sample project source code**

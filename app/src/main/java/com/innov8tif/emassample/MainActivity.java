@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -19,7 +18,6 @@ import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.AppSettingsDialog;
@@ -30,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
     private static final int PERMISSION_RC = 134;
     private static final String EXTRA_VERIFY_FACE = "EXTRA_VERIFY_FACE";
     private static final String EXTRA_HIGH_THRESHOLD = "EXTRA_HIGH_THRESHOLD";
+    private static final String EXTRA_FACE_VERIFICATION_TYPE = "EXTRA_FACE_VERIFICATION_TYPE";
     TextView txtResult;
     ImageView imgDoc;
     ImageView imgFace;
@@ -37,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
     private static final String EXTRA_SCAN_TYPE = "EXTRA_SCAN_TYPE";
     private String EXTRA_RESULT = "result";
     private boolean mVerifiedFace;
+    private String mFaceType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,14 +98,13 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
             intent.putExtra(EXTRA_SCAN_TYPE, "mykad");
             intent.putExtra(EXTRA_VERIFY_FACE, mVerifiedFace);
             intent.putExtra(EXTRA_HIGH_THRESHOLD, true);
+            intent.putExtra(EXTRA_FACE_VERIFICATION_TYPE, mFaceType);
 
             if (intent.resolveActivity(getPackageManager()) != null) {
                 startActivityForResult(intent, 11);
             } else {
                 showDownloadDialog();
             }
-
-
         }
     }
 
@@ -171,13 +170,33 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.verified) {
-            mVerifiedFace = !item.isChecked();
-            item.setChecked(!item.isChecked());
+
+        if (item.getItemId() == R.id.face_type) {
+            showFaceSelectDialog();
 
             return true;
         }
+
+
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showFaceSelectDialog() {
+        String[] types = {"FACE++", "YITU", "NONE"};
+
+        new AlertDialog.Builder(this)
+                .setItems(types, (dialog, which) -> {
+                    if (which == 0) {
+                        mFaceType = "facepp";
+                        mVerifiedFace = true;
+                    } else if (which == 1) {
+                        mFaceType = "yitu";
+                        mVerifiedFace = true;
+                    } else {
+                        mFaceType = "";
+                        mVerifiedFace = false;
+                    }
+                }).show();
     }
 
 

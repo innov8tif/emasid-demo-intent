@@ -8,21 +8,35 @@ This project demonstrates how you can launch EMAS ID Demo app from another app (
      intent.putExtra(EXTRA_SCAN_TYPE, "mykad");
      startActivityForResult(intent, RC_EMAS);
 
-**Available Scanner Types Are**
+**Available Scanner Types**
 
- 1. mykad for MyKad
- 2. ikad for IKad
- 3. passport for Passport
- 4. mdr for Malaysia's driving license
- 5. sg for Singapores's IC
- 6. ektp for Indonesia's eKTP and
- 7. hk for Hong Kong's IC
+
+|Scan Type | Value |
+|--|--|
+| MyKad | mykad |
+| iKad | ikad |
+| Passport | passport |
+| Malaysia's driving license | mdr |
+|  Singapores's IC | sg|
+| Indonesia's eKTP  | ektp |
+| Hong Kong's IC | hk |
 
 Face verification feature can be turned on by passing extra into Intent:
 
     intent.putExtra(EXTRA_VERIFY_FACE, true);
     intent.putExtra(EXTRA_HIGH_THRESHOLD, true);
     
+There are two types of face verification available and which can be selected by passing an intent :
+
+`intent.putExtra(EXTRA_FACE_VERIFICATION_TYPE, "facepp");`
+
+**Available Face Verification Type**
+
+|Face Verification Type| Value |
+|--|--|
+| Face++ | facepp |
+| YITU | yitu |
+
 When ID card scanning completed, you will receive scan result as JSON string in **onActivityResult()** method. And the resulted JSON is in the following format:
 
     {  

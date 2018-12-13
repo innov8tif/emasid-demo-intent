@@ -205,5 +205,4 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
-
 }
